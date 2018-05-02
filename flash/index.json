@@ -1,0 +1,7 @@
+{
+	"modules":
+	{
+        "finger-tapping-flash":   {"table_id":"20011490","url":"flash/modules/finger_tapping_6.form.html"},
+        "nback2-1min-flash":   {"table_id":"20011490","url":"flash/modules/nback2-1min.form.html"}
+	}
+}

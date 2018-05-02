@@ -1,0 +1,10 @@
+{
+	"api_path_development":"https://cbs.wappsystem.com/dev/",
+	"api_path_production":"https://cbs.wappsystem.com/pro/",
+	"default_production":"No",
+	"panels":{
+		"website":		{"url":"","modules":["website/index.json"]},
+		"html5":			{"url":"html5/panel.html",  "modules":["html5/index.json"]},
+		"flash":{"url":"flash/panel.html","modules":["flash/index.json"]}
+	}
+}

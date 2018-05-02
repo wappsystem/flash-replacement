@@ -1,0 +1,7 @@
+{
+	"modules":
+	{
+		"flash-finger-tapping-data":   {"table_id":"20011490","url":"html5/modules/flash-finger-tapping-data.html"},
+        "flash-finger-tapping-third":  {"table_id":"20011490","url":"html5/modules/flash-finger-tapping-third.html"}
+	}
+}

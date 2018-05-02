@@ -1,0 +1,94 @@
+<section style='margin:auto'>
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="1100" height="800" align="middle">
+        <param value="__CURRENT_PATH__/flash/tapping_6.swf?v=8"/>
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="__CURRENT_PATH__/flash/tapping_6.swf?v=8" width="1100" height="800">
+            <param value="__CURRENT_PATH__/flash/tapping_6.swf?v=8"/>
+        <!--<![endif]-->
+            <a href="//www.adobe.com/go/getflash">
+                <img src="//www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
+            </a>
+        <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+    </object>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        VmInclude:__BASE__/vmiis/Common-Code/grid/form.js
+        //-------------------------------------
+        $('#D__ID').on('load',function(){
+            /*            _init();
+                        _field_process();
+                        _task_fields=$vm.vm['__ID'].op.grid_to_form_parameters.task_fields;
+                        _set_participant_field();
+                        custom_field_process();
+            */
+        })
+        //-------------------------------------
+        var custom_field_process=function(){
+/*            $('#tb__ID td[data-custom=1]').each(function(){
+                var field=$(this).attr('data-id');
+                switch(field){
+                }
+            })
+*/        }
+        //----------------------------------
+        g_tapping_6_callback=function(param){
+            var a=param.split('&');
+            alert(a)
+/*            for(var i=0;i<a.length;i++){
+                var b=a[i].split('=');
+                try{
+                    _records[I][b[0]]=b[1]
+                }catch(e){}
+            }
+            calc();
+            $('#save__ID').triggerHandler('click');
+        */};
+        //-------------------------------------
+        var calc=function(){
+    	    var tt=_records[I]['Tapping_Time'].split(",");
+            var m=_records[I]['Match'].split(",");
+            var sn=_records[I]['Sequence_Number'].split(",");
+            var k=0;
+            var correct=true;
+            var group=0;
+            var speed=[];
+            var acc=[];
+            for (var i=0;i<6;i++) {speed[i]=0;acc[i]=0;}
+            for(var i=0;i<tt.length;i++){
+                if(parseInt(sn[i])-1!=k){
+                    group=0;
+                    correct=true;
+                }
+                k=parseInt(sn[i])-1;
+                speed[k]++;
+                if(m[i]=="N") correct=false;
+                group++
+                if(group==5){
+                    group=0;
+                    if(correct==false) acc[k]++;
+                    correct=true;
+                }
+            }
+            _records[I]['Speed_1']=Math.floor(speed[0]/5);
+            _records[I]['Speed_2']=Math.floor(speed[1]/5);
+            _records[I]['Speed_3']=Math.floor(speed[2]/5);
+            _records[I]['Speed_4']=Math.floor(speed[3]/5);
+            _records[I]['Speed_5']=Math.floor(speed[4]/5);
+            _records[I]['Speed_6']=Math.floor(speed[5]/5);
+            _records[I]['Accuracy_1']=(acc[0]/Math.floor(speed[0]/5)).toFixed(2);
+            _records[I]['Accuracy_2']=(acc[1]/Math.floor(speed[1]/5)).toFixed(2);
+            _records[I]['Accuracy_3']=(acc[2]/Math.floor(speed[2]/5)).toFixed(2);
+            _records[I]['Accuracy_4']=(acc[3]/Math.floor(speed[3]/5)).toFixed(2);
+            _records[I]['Accuracy_5']=(acc[4]/Math.floor(speed[4]/5)).toFixed(2);
+            _records[I]['Accuracy_6']=(acc[5]/Math.floor(speed[5]/5)).toFixed(2);
+    	}
+        //-------------------------------------
+    }
+</script>
+<style>
+    VmInclude:__BASE__/vmiis/Common-Code/toolbar/toolbar.css
+</style>
