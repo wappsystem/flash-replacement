@@ -1,50 +1,191 @@
 <div id=thirdparty_container__ID>
-    <span style='font-size:large'>This is the conainer you can use!!<br>Example below<br></span>
-    <span style='color:rgba(0,0,0,0.5)'>click 4 times to finish the task and return the results;</span>
+	<div id=instructions style="margin: auto; text-align:center;">
+		<div style='margin-top:50px; font-size:x-large; color:rgba(0,0,255,255)'>Using your non-dominant hand on the numeric keyboard, repeatedly tap the five element sequence shown</div>
+		<div style='font-size:x-large; font-weight:bold; color:rgba(0,0,255,255)'>as quickly and accurately as possible</div>
+		<button id=start_button style="margin-top:20px;" class='btn btn-primary btn-lg'>Start</button>
+	</div>
+	<canvas id=main_canvas width=1100 height=300 style="margin: auto; display: block;"></canvas>
 </div>
 <script>
-    function F__ID(){
+	function F__ID(){
+		var intervals = [];
 		//------------------------------------
-        var this_module=$vm.module_list[$vm.vm['__ID'].name];
-        //------------------------------------
+		var this_module=$vm.module_list[$vm.vm['__ID'].name];
+		//------------------------------------
 		$('#D__ID').on('load',function(){
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
+
+		})
+		//------------------------------------
+		var ClearIntervals = function()
+		{
+			for (var i=0; i<intervals.lenght; i++)
+			{
+				clearTimeout(intervals[i]);
+			}
+			intervals = [];
+		}
+		//------------------------------------
+		$('#D__ID').on('unload',function(){
+			//alert('unload');
+			ClearIntervals();
 		})
 		//------------------------------------
 		var data_process=function(record){
 			alert(JSON.stringify(record));
-            var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
-            $VmAPI.request({data:req,callback:function(res){
-                $vm.refresh=1;
-                $vm.alert('Your data has been successfully submitted');
-            }});
-            //--------------------------------------------------------
+			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
+			$VmAPI.request({data:req,callback:function(res){
+				$vm.refresh=1;
+				$vm.alert('Your data has been successfully submitted');
+			}});
+			//--------------------------------------------------------
 		}
 		//------------------------------------
 		var third_party=function(containerID,callback){
-            $('#'+containerID).css('background-color','#789');
-            var N=0;
-			var record={}
-            $('#thirdparty_container__ID').on('click',function(){
-                var R=Math.floor(Math.random()*255)+1;
-                var G=Math.floor(Math.random()*255)+1;
-                var B=Math.floor(Math.random()*255)+1;
-                $('#'+containerID).css('background-color','rgb('+R+','+G+','+B+')');
-                var V=Math.floor(Math.random()*100)+1;
-                if(N==0) record.A=V;
-                if(N==1) record.B=V;
-                if(N==2) record.C=V;
-                if(N>=3){
-                    $('#thirdparty_container__ID').off('click');
-                    callback(record);
-                }
-                N++;
-            })
-            //------------------------------------
-        }
-        //------------------------------------
-    }
+			$('#instructions').show();
+			ClearIntervals();
+			$('#'+containerID).css('background-color','#ffffff');
+			var canvas = document.getElementById('main_canvas');
+			var ctx = canvas.getContext('2d');
+//*
+			var repeats = 6;
+			var predelaytime = 5000;
+			var predelaytext = "Be ready it will start shortly";
+			var postdelaytime = 25000;
+			var postdelaytext = "Relax for a while.";
+			var timelimit = 30000;
+/*/
+			var repeats = 2;
+			var predelaytime = 2000;
+			var predelaytext = "Be ready it will start shortly";
+			var postdelaytime = 2000;
+			var postdelaytext = "Relax for a while.";
+			var timelimit = 5000;
+//*/
+			var repeat = 0
+
+			var sequence = ['4', '1', '3', '2', '4'];
+			var currentSequence = 0;
+			var currentNumber = 0;
+
+			var startTime;
+
+			var width = canvas.width;
+			var height = canvas.height;
+			var midX = width / 2;
+			var midY = height / 2;
+
+			var separation = 60;
+
+			var results = {
+				Match : [],
+				Tapping_Time : [],
+				Sequence_Number : []
+			};
+
+			var sequenceMatch = null;
+
+			var repeatResults = {};
+			ctx.clearRect(0, 0, width, height);
+			ctx.fillStyle = 'rgb(0,0,255)';
+			ctx.textAlign = 'center';
+			ctx.font = '48px arial';
+
+			$(document).keypress(function(e){
+				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+					return;
+				if (currentSequence > 0 && currentNumber < sequence.length)
+				{
+					if (sequence[currentNumber] == e.key)
+					{
+						if (sequenceMatch != 'N')
+							sequenceMatch = 'M';
+					}
+					else
+					{
+						sequenceMatch = 'N';
+					}
+					var left = midX - (separation * sequence.length) / 2;
+					var x = left + currentNumber * separation;
+					ctx.fillStyle = 'rgb(0,0,102)';
+						ctx.beginPath();
+					ctx.arc(x, midY + separation / 2, 20, 0, 2*Math.PI);
+					ctx.fill();
+					currentNumber++;
+
+					if (currentNumber >= sequence.length)
+					{
+						results.Match.push(sequenceMatch);
+						results.Tapping_Time.push(Date.now() - startTime);
+						results.Sequence_Number.push(repeat);
+						ResetSequence();
+					}
+				}
+				e.preventDefault();
+			});
+
+			var ResetSequence = function()
+			{
+				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+					return;
+				ctx.clearRect(0, 0, width, height);
+				ctx.fillStyle = 'rgb(0,0,102)';
+				ctx.font = '64px arial';
+				var left = midX - (separation * sequence.length) / 2;
+				for (var i=0; i<sequence.length; i++)
+				{
+					var x = left + i * separation;
+					ctx.fillText(sequence[i], x, midY - separation / 2);
+				}
+				startTime = Date.now();
+				currentNumber = 0;
+				currentSequence++;
+				sequenceMatch = null;
+			}
+
+			var Start = function()
+			{
+				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+					return;
+				repeat++;
+				ctx.clearRect(0, 0, width, height);
+				ctx.fillStyle = 'rgb(0,0,255)';
+				ctx.font = '48px arial';
+				ctx.fillText(predelaytext, midX, midY);
+				intervals.push(setTimeout(ResetSequence, predelaytime));
+				intervals.push(setTimeout(Finish, predelaytime + timelimit));
+			}
+			var Finish = function()
+			{
+				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+					return;
+				currentSequence = 0;
+				ctx.clearRect(0, 0, width, height);
+				if (repeat < repeats)
+				{
+					ctx.fillStyle = 'rgb(0,0,255)';
+					ctx.font = '48px arial';
+					ctx.fillText(postdelaytext, midX, midY);
+					intervals.push(setTimeout(Start, postdelaytime));
+				}
+				else
+				{
+					results.A = results.Match.join(",");
+					results.B = results.Tapping_Time.join(",");
+					results.C = results.Sequence_Number.join(",");
+					callback(results);
+				}
+			}
+
+			$('#start_button').on('click',function(){
+				$('#instructions').hide();
+				Start();
+			});
+			//------------------------------------
+		}
+		//------------------------------------
+	}
 </script>
 <style>
 	#D__ID{
@@ -52,7 +193,7 @@
 		overflow:auto;
 		animation: vm_module_fadein 1.0s;
 	}
-    #thirdparty_container__ID{
+	#thirdparty_container__ID{
 		overflow: hidden;
 	}
 </style>
