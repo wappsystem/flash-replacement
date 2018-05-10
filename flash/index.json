@@ -1,7 +1,9 @@
 {
 	"modules":
 	{
-        "finger-tapping-flash":   {"table_id":"20011490","url":"flash/modules/finger_tapping_6.form.html"},
+		"finger-tapping-flash":   {"table_id":"20011490","url":"flash/modules/finger_tapping_6.form.html"},
+		"stroop-colour-flash":   {"table_id":"20011492","url":"flash/modules/Stroop_colour.form.html"},
+		"stroop-text-flash":   {"table_id":"20011492","url":"flash/modules/Stroop_text.form.html"},
         "nback2-1min-flash":   {"table_id":"20011490","url":"flash/modules/nback2-1min.form.html"}
 	}
 }

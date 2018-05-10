@@ -3,6 +3,12 @@
 	{
 		"finger-tapping-specification":   {"table_id":"","url":"html5/modules/finger-tapping-specification.html"},
 		"finger-tapping-data":   {"table_id":"20011490","url":"html5/modules/finger-tapping-data.html"},
-        "finger-tapping-third":  {"table_id":"20011490","url":"html5/modules/finger-tapping-third.html"}
+        "finger-tapping-third":  {"table_id":"20011490","url":"html5/modules/finger-tapping-third.html"},
+		"stroop-colour-specification":   {"table_id":"","url":"html5/modules/stroop-colour-specification.html"},
+		"stroop-colour-data":   {"table_id":"20011492","url":"html5/modules/stroop-colour-data.html"},
+        "stroop-colour-third":  {"table_id":"20011492","url":"html5/modules/stroop-colour-third.html"},
+		"stroop-text-specification":   {"table_id":"","url":"html5/modules/stroop-text-specification.html"},
+		"stroop-text-data":   {"table_id":"20011493","url":"html5/modules/stroop-text-data.html"},
+        "stroop-text-third":  {"table_id":"20011493","url":"html5/modules/stroop-text-third.html"}
 	}
 }
