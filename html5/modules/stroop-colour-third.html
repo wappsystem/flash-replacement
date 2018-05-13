@@ -1,10 +1,21 @@
 <div id=thirdparty_container__ID>
-	<div id=instructions style="margin: auto; text-align:center;">
-		<div style='margin-top:50px; font-size:x-large; color:rgba(0,0,255,255)'>Using your non-dominant hand on the numeric keyboard, repeatedly tap the five element sequence shown</div>
-		<div style='font-size:x-large; font-weight:bold; color:rgba(0,0,255,255)'>as quickly and accurately as possible</div>
-		<button id=start_button style="margin-top:20px;" class='btn btn-primary btn-lg'>Start</button>
+	<div id=instructions__ID class="container">
+		<div class="row row__ID">
+			<div class="col-sm" >
+				This task measures reaction time to colours and words<br>
+				Three different coloured squares will be displayed at the bottom of the screen.<br>
+				<u><b>Click</b></u> on the coloured square that matches the <b>COLOUR</b> (red, blue or green) of the word above.<br><br>
+				<p>Example</p>
+				<img src="__CURRENT_PATH__/image_col.jpg"  width="155" height="128"> <br><br></br>
+				<p><i><b>If<font color="#0000FF" > RED </font>appears you would select the <u>blue</u> box as shown</b></i></p>
+				Your responses will be timed.<br>
+				Accuracy is as important as speed in this task.<br>
+				To begin, please click on the <button id=start_button__ID class='btn btn-primary btn-lg'>Start</button> button.
+			</div>
+		</div>
+
 	</div>
-	<canvas id=main_canvas width=1100 height=300 style="margin: auto; display: block;"></canvas>
+	<canvas id=main_canvas__ID width=600 height=300 style="margin: auto; display: block;"></canvas>
 </div>
 <script>
 	function F__ID(){
@@ -15,7 +26,6 @@
 		$('#D__ID').on('load',function(){
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
-
 		})
 		//------------------------------------
 		var ClearIntervals = function()
@@ -33,7 +43,7 @@
 		})
 		//------------------------------------
 		var data_process=function(record){
-			alert(JSON.stringify(record));
+			//alert(JSON.stringify(record));
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -43,144 +53,133 @@
 		}
 		//------------------------------------
 		var third_party=function(containerID,callback){
-			$('#instructions').show();
+			$('#instructions__ID').show();
 			ClearIntervals();
 			$('#'+containerID).css('background-color','#ffffff');
-			var canvas = document.getElementById('main_canvas');
+			var canvas = document.getElementById('main_canvas__ID');
 			var ctx = canvas.getContext('2d');
+			var colors = ['red', 'lime', 'blue'];
+			var pairs = [
+				['RED', 'lime'],['RED', 'blue'],
+				['GREEN', 'red'],['GREEN', 'blue'],
+				['BLUE', 'red'],['BLUE', 'lime']];
+
+			var pair = [];
 //*
-			var repeats = 6;
-			var predelaytime = 5000;
-			var predelaytext = "Be ready it will start shortly";
-			var postdelaytime = 25000;
-			var postdelaytext = "Relax for a while.";
-			var timelimit = 30000;
+			var timelimit = 20000;
+			//var timelimit = 45000;
 /*/
-			var repeats = 2;
-			var predelaytime = 2000;
-			var predelaytext = "Be ready it will start shortly";
-			var postdelaytime = 2000;
-			var postdelaytext = "Relax for a while.";
 			var timelimit = 5000;
 //*/
-			var repeat = 0
-
-			var sequence = ['4', '1', '3', '2', '4'];
-			var currentSequence = 0;
-			var currentNumber = 0;
-
 			var startTime;
-
 			var width = canvas.width;
 			var height = canvas.height;
 			var midX = width / 2;
 			var midY = height / 2;
-
-			var separation = 60;
-
+			var separation = 90;
 			var results = {
 				Match : [],
-				Tapping_Time : [],
-				Sequence_Number : []
+				Time : [],
 			};
 
-			var sequenceMatch = null;
-
-			var repeatResults = {};
+			var rects = [];
 			ctx.clearRect(0, 0, width, height);
-			ctx.fillStyle = 'rgb(0,0,255)';
 			ctx.textAlign = 'center';
-			ctx.font = '48px arial';
-
-			$(document).keypress(function(e){
-				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
-					return;
-				if (currentSequence > 0 && currentNumber < sequence.length)
-				{
-					if (sequence[currentNumber] == e.key)
-					{
-						if (sequenceMatch != 'N')
-							sequenceMatch = 'M';
-					}
-					else
-					{
-						sequenceMatch = 'N';
-					}
-					var left = midX - (separation * sequence.length) / 2;
-					var x = left + currentNumber * separation;
-					ctx.fillStyle = 'rgb(0,0,102)';
-						ctx.beginPath();
-					ctx.arc(x, midY + separation / 2, 20, 0, 2*Math.PI);
-					ctx.fill();
-					currentNumber++;
-
-					if (currentNumber >= sequence.length)
-					{
-						results.Match.push(sequenceMatch);
-						results.Tapping_Time.push(Date.now() - startTime);
-						results.Sequence_Number.push(repeat);
-						ResetSequence();
-					}
-				}
-				e.preventDefault();
-			});
-
-			var ResetSequence = function()
+			var NextPair = function()
 			{
-				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
-					return;
-				ctx.clearRect(0, 0, width, height);
-				ctx.fillStyle = 'rgb(0,0,102)';
-				ctx.font = '64px arial';
-				var left = midX - (separation * sequence.length) / 2;
-				for (var i=0; i<sequence.length; i++)
-				{
-					var x = left + i * separation;
-					ctx.fillText(sequence[i], x, midY - separation / 2);
-				}
+				pair = pairs[Math.floor(Math.random() * pairs.length)];
 				startTime = Date.now();
-				currentNumber = 0;
-				currentSequence++;
-				sequenceMatch = null;
-			}
+				ctx.clearRect(0, 0, width, height);
+				ctx.fillStyle = pair[1];
+				ctx.font = '64px arial';
+				ctx.fillText(pair[0], midX, midY - separation / 2);
 
+				var left = midX - (separation * (colors.length - 1)) / 2;
+				rects = [];
+				for (var i=0; i<colors.length; i++)
+				{
+					ctx.fillStyle = colors[i];
+					ctx.beginPath();
+					var x = left + i * separation;
+					var y = midY + separation / 2;
+					var halfSize = separation / 3;
+					var r =
+					{
+					x: x - halfSize, y: y - halfSize, width: halfSize * 2, height: halfSize * 2, color:colors[i]
+					}
+					rects.push(r);
+					ctx.rect(r.x, r.y, r.width, r.height);
+					ctx.fill();
+				}
+			}
 			var Start = function()
 			{
-				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+				if ($("#main_canvas__ID").is(':hidden')) //hacky and ugly way :(
 					return;
-				repeat++;
-				ctx.clearRect(0, 0, width, height);
-				ctx.fillStyle = 'rgb(0,0,255)';
-				ctx.font = '48px arial';
-				ctx.fillText(predelaytext, midX, midY);
-				intervals.push(setTimeout(ResetSequence, predelaytime));
-				intervals.push(setTimeout(Finish, predelaytime + timelimit));
+				intervals.push(setTimeout(Finish, timelimit));
+				NextPair();
 			}
 			var Finish = function()
 			{
-				if ($("#main_canvas").is(':hidden')) //hacky and ugly way :(
+				if ($("#main_canvas__ID").is(':hidden')) //hacky and ugly way :(
 					return;
 				currentSequence = 0;
 				ctx.clearRect(0, 0, width, height);
-				if (repeat < repeats)
-				{
-					ctx.fillStyle = 'rgb(0,0,255)';
-					ctx.font = '48px arial';
-					ctx.fillText(postdelaytext, midX, midY);
-					intervals.push(setTimeout(Start, postdelaytime));
-				}
-				else
 				{
 					results.A = results.Match.join(",");
-					results.B = results.Tapping_Time.join(",");
-					results.C = results.Sequence_Number.join(",");
+					results.B = results.Time.join(",");
 					callback(results);
 				}
 			}
-
-			$('#start_button').on('click',function(){
-				$('#instructions').hide();
+			$('#start_button__ID').on('click',function(){
+				$('#instructions__ID').hide();
 				Start();
+			});
+			function getXY(canvas, event)
+			{
+				const rect = canvas.getBoundingClientRect()
+				const y = event.clientY - rect.top
+				const x = event.clientX - rect.left
+				return {x:x, y:y}
+			}
+			$("#main_canvas__ID").click(function(e)
+			{
+				if ($("#main_canvas__ID").is(':hidden')) //hacky and ugly way :(
+					return;
+				const XY = getXY(canvas, e)
+				var x = XY.x;
+				var y = XY.y;
+
+				for (var i=0; i<rects.length; i++)
+				{
+					var r = rects[i];
+					if (x > r.x && x < r.x + r.width && y > r.y && y < r.y + r.height)
+					{
+						results.Match.push(pair[1] == r.color ? 'C' : 'W');
+						results.Time.push(Date.now() - startTime);
+						NextPair();
+					}
+				}
+			});
+
+			$("#main_canvas__ID").mousemove(function(e)
+			{
+				if ($("#main_canvas__ID").is(':hidden')) //hacky and ugly way :(
+					return;
+				const XY = getXY(canvas, e)
+				var x = XY.x;
+				var y = XY.y;
+
+				canvas.style.cursor = 'inherit';
+				for (var i=0; i<rects.length; i++)
+				{
+					var r = rects[i];
+					if (x > r.x && x < r.x + r.width && y > r.y && y < r.y + r.height)
+					{
+						canvas.style.cursor = 'pointer';
+					}
+
+				}
 			});
 			//------------------------------------
 		}

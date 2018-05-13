@@ -9,6 +9,24 @@
         "stroop-colour-third":  {"table_id":"20011492","url":"html5/modules/stroop-colour-third.html"},
 		"stroop-text-specification":   {"table_id":"","url":"html5/modules/stroop-text-specification.html"},
 		"stroop-text-data":   {"table_id":"20011493","url":"html5/modules/stroop-text-data.html"},
-        "stroop-text-third":  {"table_id":"20011493","url":"html5/modules/stroop-text-third.html"}
+        "stroop-text-third":  {"table_id":"20011493","url":"html5/modules/stroop-text-third.html"},
+		"digital-symbol-substitution-specification":   {"table_id":"","url":"html5/modules/digital-symbol-substitution-specification.html"},
+		"digital-symbol-substitution-data":   {"table_id":"20011494","url":"html5/modules/digital-symbol-substitution-data.html"},
+        "digital-symbol-substitution-third":  {"table_id":"20011494","url":"html5/modules/digital-symbol-substitution-third.html"},
+		"tower-of-london-specification":   {"table_id":"","url":"html5/modules/tower-of-london-specification.html"},
+		"tower-of-london-data":   {"table_id":"20011495","url":"html5/modules/tower-of-london-data.html"},
+        "tower-of-london-third":  {"table_id":"20011495","url":"html5/modules/tower-of-london-third.html"},
+		"letter-cancellation-specification":   {"table_id":"","url":"html5/modules/letter-cancellation-specification.html"},
+		"letter-cancellation-data":   {"table_id":"20011496","url":"html5/modules/letter-cancellation-data.html"},
+        "letter-cancellation-third":  {"table_id":"20011496","url":"html5/modules/letter-cancellation-third.html"},
+		"nback1-specification":   {"table_id":"","url":"html5/modules/nback1-specification.html"},
+		"nback1-data":   {"table_id":"20011497","url":"html5/modules/nback1-data.html"},
+        "nback1-third":  {"table_id":"20011497","url":"html5/modules/nback1-third.html"},
+		"nback2-specification":   {"table_id":"","url":"html5/modules/nback2-specification.html"},
+		"nback2-data":   {"table_id":"20011498","url":"html5/modules/nback2-data.html"},
+        "nback2-third":  {"table_id":"20011498","url":"html5/modules/nback2-third.html"},
+		"nback3-specification":   {"table_id":"","url":"html5/modules/nback3-specification.html"},
+		"nback3-data":   {"table_id":"20011499","url":"html5/modules/nback3-data.html"},
+        "nback3-third":  {"table_id":"20011499","url":"html5/modules/nback3-third.html"}
 	}
 }

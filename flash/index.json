@@ -3,7 +3,12 @@
 	{
 		"finger-tapping-flash":   {"table_id":"20011490","url":"flash/modules/finger_tapping_6.form.html"},
 		"stroop-colour-flash":   {"table_id":"20011492","url":"flash/modules/Stroop_colour.form.html"},
-		"stroop-text-flash":   {"table_id":"20011492","url":"flash/modules/Stroop_text.form.html"},
-        "nback2-1min-flash":   {"table_id":"20011490","url":"flash/modules/nback2-1min.form.html"}
+		"stroop-text-flash":   {"table_id":"20011493","url":"flash/modules/Stroop_text.form.html"},
+		"digital-symbol-substitution-flash":   {"table_id":"20011494","url":"flash/modules/dsst.form.html"},
+		"tower-of-london-flash":   {"table_id":"20011495","url":"flash/modules/tower_of_london.form.html"},
+		"letter-cancellation-flash":   {"table_id":"20011496","url":"flash/modules/letter_cancellation_task.form.html"},
+		"nback1-flash":   {"table_id":"20011497","url":"flash/modules/nback1.form.html"},
+		"nback2-flash":   {"table_id":"20011498","url":"flash/modules/nback2.form.html"},
+        "nback3-flash":   {"table_id":"20011499","url":"flash/modules/nback3.form.html"}
 	}
 }

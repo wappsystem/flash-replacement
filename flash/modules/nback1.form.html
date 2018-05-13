@@ -1,0 +1,68 @@
+<section style='margin:auto'>
+    VmInclude:__BASE__/vmiis/Common-Code/toolbar/back_save.html
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="1100" height="800" align="middle">
+        <param value="__CURRENT_PATH__/flash/NBack1_1min.swf?ver=12"/>
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="__CURRENT_PATH__/flash/NBack1_1min.swf?ver=12" width="1100" height="800">
+            <param value="__CURRENT_PATH__/flash/NBack1_1min.swf?ver=12"/>
+        <!--<![endif]-->
+            <a href="//www.adobe.com/go/getflash">
+                <img src="//www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
+            </a>
+        <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+    </object>
+</section>
+<script>
+    function F__ID(){
+        //-------------------------------------
+        VmInclude:__BASE__/vmiis/Common-Code/grid/form.js
+        //-------------------------------------
+        $('#D__ID').on('load',function(){
+        })
+        //-------------------------------------
+        var custom_field_process=function(){
+        }
+        //----------------------------------
+        g_nback1_1min_callback=function(param){
+            alert(param)
+        };
+        //-------------------------------------
+        var calc=function(){
+            var nno=_records[I]['NNO'].split(",");
+            var nrt=_records[I]['NRT'].split(",");
+            var nac=_records[I]['NAC'].split(",");
+            var ngta=0;
+            var nrgt=0;
+            var ntcr=0;
+            var ntic=0;
+            var ntmr=0;
+            var nmis=0;
+            for (var i=0;i<nno.length;i++){
+    	        if( nac[i]=='CM' && nno[i]!='PRE')   ntcr++;
+    	        if( nac[i]=='CN' && nno[i]!='PRE')   ntcr++;
+    	        if( nac[i]=='O' && nno[i]!='PRE')    nmis++;
+    	        if( nac[i]=='FM' && nno[i]!='PRE')   ntic++;
+    	        if( nac[i]=='FN' && nno[i]!='PRE')   ntic++;
+    	        if( nac[i]=='W' && nno[i]!='PRE')    ntic++;
+    	        if( nno[i]!='PRE')   nrgt=nrgt+parseInt(nrt[i]);
+            }
+            if( ntcr+ntic > 0){
+                ngta=(100*ntcr/(ntcr+ntic)).toFixed(1)
+                _records[I]['NGTA']=ngta;
+            }
+            else  _records[I]['NGTA']='0';
+            _records[I]['NBACK']='P';
+            _records[I]['NTCR']=ntcr;
+            _records[I]['NMIS']=nmis;
+            _records[I]['NTIC']=ntic;
+            _records[I]['NGRT']=nrgt;
+        }
+        //-------------------------------------
+    };
+</script>
+<style>
+    VmInclude:__BASE__/vmiis/Common-Code/style/default.css
+    VmInclude:__BASE__/vmiis/Common-Code/style/form.css
+</style>

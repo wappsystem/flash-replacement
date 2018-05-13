@@ -33,7 +33,7 @@
 		})
 		//------------------------------------
 		var data_process=function(record){
-			//alert(JSON.stringify(record));
+			alert(JSON.stringify(record));
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;

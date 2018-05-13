@@ -1,0 +1,120 @@
+<section id=form_container__ID>
+    <div id=header__ID>
+		Tower of London
+	</div>
+    <form id=F__ID>
+        <div class="container">
+            <div class="row row__ID">
+                <div class="col-sm" >
+                    Description:<br>
+                    No duration in this task.<br>
+                    Three pins. First pin fits 3 balls, second pin fits 2 ball and third pin fits 1 ball.<br>
+                    Three Balls. Green, Red and Blue.<br>
+                    Same start position of balls in every presentation: 2 moves - Pin 1 - Green, Red, Pin 2 - Blue Pin 3 -<br>
+                    Final position plus number of moves is presented.<br>
+                    Example: 2 moves - Pin 1 - Green, Blue, Pin 2 - , Pin 3 - Red<br>
+                    Test 1: 2 moves - Pin 1 - , Pin 2 - Blue, Green , Pin 3 - Red<br>
+                    Test 2: 2 moves - Pin 1 - Green, Pin 2 - Blue, Pin 3 - Red<br>
+                    Test 3: 3 moves - Pin 1 - Green, Blue, Pin 2 - Red, Pin 3 -<br>
+                    Test 4: 3 moves - Pin 1 - Green, Pin 2 - Blue, Red, Pin 3 -<br>
+                    Test 5: 4 moves - Pin 1 - Red, Green, Pin 2 - Blue, Pin 3 -<br>
+                    Test 6: 4 moves - Pin 1 - Blue, Pin 2 - Red, Green, Pin 3 -<br>
+                    Test 7: 4 moves - Pin 1 - Red, Blue, Pin 2 - , Pin 3 - Green<br>
+                    Test 8: 4 moves - Pin 1 - , Pin 2 - Red, Blue, Pin 3 - Green<br>
+                    Test 9: 5 moves - Pin 1 - Red, Green, Blue, Pin 2 - , Pin 3 -<br>
+                    Test 10: 5 moves - Pin 1 - Red, Blue, Green, Pin 2 - , Pin 3 -<br>
+                    Test 11: 5 moves - Pin 1 - Blue, Green, Pin 2 - Red, Pin 3 -<br>
+                    Test 12: 5 moves - Pin 1 - Blue, Pin 2 - Red, Green, Pin 3 -<br>
+                    When a ball is touched possible moves is shown.<br>
+                    If an attempt is not successful, result is saved and the same presentation is repeated. Three attempts are allowed for each presentation.<br>
+                    <br>
+                    <a href="__CURRENT_PATH__/Tower of London_Specs.docx" >Researchers Specs</a>
+                    <br>
+                    <a href="__CURRENT_PATH__/tower of london.cs" >Flash Code</a>
+                </div>
+            </div>
+            <div class="row row__ID">
+                <div class="col-sm" >
+                    1. Instruction page:<br>
+                    <hr></hr>
+                </div>
+            </div>
+            <div class="row row__ID">
+                <div class="col-sm" >
+                    Instructions<br>
+                    Click-and-drag, or use the keypad ("R","G" and "B" to select the balls, then "1","2" and "3" to move them) to arrange the coloured balls on the left to match the Goal on the right within the set number of moves.<br><br>
+                    <img src="__CURRENT_PATH__/tol.png"  width="600px"> <br>
+                </div>
+            </div>
+            <hr></hr>
+            <div class="row row__ID">
+                <div class="col-sm" >
+                    <hr></hr>
+                    Returned data for each presentation:<br>
+                    Test Nummer<br>
+                    Correct or Wrong<br>
+                    Planning time - Time taken to the first move.<br>
+                    Finish Time - Total time to finish one presentation.<br>
+
+                    <hr></hr>
+                </div>
+            </div>
+    	</div>
+    </form>
+</section>
+<script>
+</script>
+<style>
+    #D__ID{
+        height:100%;
+        overflow: auto;
+        animation: vm_module_fadein 1.0s;
+        background: rgba(151,164,181,0.95);
+    }
+    #form_container__ID{
+        padding-top:50px;
+        max-width: 900px;
+        margin-left: auto;
+        margin-right: auto;
+
+        font-family: Verdana,sans-serif;
+        font-size: 15px;
+        line-height: 1.5;
+        color: #000;
+    }
+    #form_container__ID .row__ID{
+        padding:6px 0;
+    }
+    #form_container__ID .row__ID:hover{
+        /*background-color: #727b84;*/
+    }
+    #header__ID{
+        background-color:#727b84;
+        color:#000;
+        padding:10px 15px 10px 15px;
+        font-size:150%;
+    }
+    #quest__ID{
+        padding:5px 5px 5px 5px;
+        font-size:120%;
+    }
+    #F__ID{
+        border:1px solid #727b84;
+        padding:6px 15px 20px 15px;
+    }
+    #F__ID label
+        display: inline-block;
+        margin: .6rem 0 .3rem 0;
+    }
+
+    #F__ID fieldset {
+        border: 0px solid #c0c0c0;
+        margin: 0;
+        padding: 0;
+    }
+    @media screen and (max-width:768px){
+        #form_container__ID{
+            padding:20px 10px 50px 10px;
+        }
+    }
+</style>

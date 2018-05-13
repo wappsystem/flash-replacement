@@ -1,0 +1,61 @@
+<section style='margin:auto'>
+    <object classid="clsid:d27cdb6e-ae6d-11cf-96b8-444553540000" width="1100" height="800" align="middle">
+        <param value="__CURRENT_PATH__/flash/Tower_London.swf?ver=10"/>
+        <!--[if !IE]>-->
+        <object type="application/x-shockwave-flash" data="__CURRENT_PATH__/flash/Tower_London.swf?ver=10" width="1100" height="800">
+            <param value="__CURRENT_PATH__/flash/Tower_London.swf?ver=10"/>
+        <!--<![endif]-->
+            <a href="//www.adobe.com/go/getflash">
+                <img src="//www.adobe.com/images/shared/download_buttons/get_flash_player.gif" alt="Get Adobe Flash player"/>
+            </a>
+        <!--[if !IE]>-->
+        </object>
+        <!--<![endif]-->
+    </object>
+</section>
+<script>
+    function F__ID(){
+        //----------------------------------
+        VmInclude:__BASE__/vmiis/Common-Code/grid/form.js
+        //----------------------------------
+        $('#D__ID').on('load',function(){
+        })
+        //----------------------------------
+        var custom_field_process=function(){
+        }
+        //-------------------------------------
+        _before_submit=function(record,dbv){
+        }
+        //-------------------------------------
+        _before_submit_form=function(){
+        }
+        //-------------------------------------
+        g_tower_of_london_callback=function(param){
+            alert(param);
+        };
+        //-------------------------------------
+        var calc=function(){
+    	    var tpt=_records[I].TPT.split(",");
+            var tft=_records[I].TFT.split(",");
+            var tss=_records[I].TSS.split(",");
+            var tno=_records[I].TNO.split(",");
+            var ss=0;
+            var plan=0.0;
+            var finish=0.0;
+            for (var i=0;i<tpt.length;i++){
+     	        plan=plan+parseInt(tpt[i]);
+     	        finish=finish+parseInt(tft[i]);
+     	        if(tss[i]=='false') ss++;
+            }
+            _records[I].TGME=(ss/tpt.length).toFixed(2).toString();
+            _records[I].TGMT=((plan+finish)/tpt.length*0.001).toFixed(3).toString();
+            _records[I].TMIS=ss.toString();
+            _records[I].TPLAN=((plan)/tpt.length*0.001).toFixed(3).toString();
+        }
+        //-------------------------------------
+    };
+</script>
+<style>
+    VmInclude:__BASE__/vmiis/Common-Code/style/default.css
+    VmInclude:__BASE__/vmiis/Common-Code/style/form.css
+</style>
