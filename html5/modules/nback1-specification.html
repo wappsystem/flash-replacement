@@ -1,16 +1,24 @@
 <section id=form_container__ID>
     <div id=header__ID>
-		Stroop Text
+		1 - Back
 	</div>
     <form id=F__ID>
         <div class="container">
             <div class="row row__ID">
                 <div class="col-sm" >
                     Description:<br>
-                    The duration of this task is normally 45 seconds.<br>
-                    Colour and text are randomly generated. They can't be the same, so if RED for text and RED for colour is the result of randomisation it must be ignored.
-                    Measure reaction time and if the answer is correct or not for each click.
-                    Ignore any click after last click until next coloured text is shown.
+                    The user is asked to compare the <b>position</b> of a letter displayed on the screen to the position of the first letter presented.  <br>
+                    If it match, letter "M" is pressed and if it doesn't letter "N" is pressed as quickly as possible.<br>
+                    Every 4.5 seconds, one of 12 possible capital-letter stimuli appears in one of
+                    12 possible locations on a computer monitor. The location of the stimulus is one of 12 locations on a imaginary circular grid (not visible). The possible stimulus locations are the intersection points of six equidistant imaginary radii of two imaginary circles, one at 1 cm and the other at 3.5 cm from the centre of the screen (the inner and outer circles of this array respectively subtend approximately 1.5 degrees and 4.5 degrees visual angle). Only a small fixation point is present in the center of the grid.<br>
+                    &#9679;	the letters are white; the background is black<br>
+                    &#9679;	The following 12 letters are used: B C F H L M P T W X Y Z<br>
+                    &#9679;	Letter name and letter position occur with equal probability.<br>
+                    The display field of the task on the PC screen is quite small, to minimize eye movements. The identity of the letters is easily distinguished without having to foveate on it.<br>
+                    <img src="__CURRENT_PATH__/nback.png"  width="400px"> <br><br>
+                    This capital-letter stimulus is presented for 250 milliseconds. At 1.5 seconds prior to stimulus onset, a warning cue (big green dot) in the centre of the screen appears for 200 milliseconds. The letter stimulus occurs 1.3 seconds after the cue disappears. The identity of the letter and its spatial position vary randomly from trial to trial. Matches occur on 50% of the trials. Important to make the randomisation before start to make it even. A test block, consisting of 50 trials, preceded by 1 redundant + 3 warmup trials (discarded from analysis), has a duration of 4 minutes and 3 seconds. <br>
+                    <img src="__CURRENT_PATH__/nback trial.png"  width="400px"> <br>
+                    <img src="__CURRENT_PATH__/nback 1 stimuli.png"  width="400px"> <br><br>
                 </div>
             </div>
             <div class="row row__ID">
@@ -21,24 +29,31 @@
             </div>
             <div class="row row__ID">
                 <div class="col-sm" >
-                    This task measures reaction time to colours and words<br>
-                    Three different coloured squares will be displayed at the bottom of the screen.<br>
-                    <u><b>Click</b></u> on the coloured square that matches the <b>TEXT</b> (red, blue or green) of the word above.<br><br>
-                    <p>Example</p>
-                    <img src="__CURRENT_PATH__/image_txt.jpg"  width="155" height="128"> <br><br></br>
-                    <p><i><b>If<font color="#FF0000" > GREEN </font>appears you would select the <u>green</u> box as shown</b></i></p>
-                    Your responses will be timed.<br>
-                    Accuracy is as important as speed in this task.<br>
-                    To begin, please click on the <b>"<u>Start</u>"</b> button.
+                    1-Back<br>
+                    This task compares the position of letters displayed on the screen.<br>
+                    Remember the position of the first letter.<br>
+                    Compare it to the position of all other letters.<br>
+                    If the position of the current letter matches the position of the first letter press M on the keyboard for Match as quickly as possible.<br>
+                    If the position of the current letter does not match press N for No Match as quickly as possible.<br>
+                    To begin, press the start button (A green dot will warn you that a letter is about to appear)<br>
+                    This task starts IMMEDIATELY after pressing start<br>
+                    <img src="__CURRENT_PATH__/nback1.png"  width="600px"> <br>
                 </div>
             </div>
             <hr></hr>
             <div class="row row__ID">
                 <div class="col-sm" >
                     <hr></hr>
-                    Returned data for every click:<br>
-                    1. Time in milli seconds from the coloured text is shown until a mouse click.<br>
-                    2. "C" for correct, "W" for wrong <br>
+                    Returned data for every stimuli:<br>
+                    1. Stimuli number, mark first stimuli with PRE (Preceding the trial, reference location)<br>
+                    2. Reaction time from start of stimuli.<br>
+                    3. Key response<br>
+                    - CM (if correct Match)<br>
+                    - CN (if correct Non-Match)<br>
+                    - FM (if false Match; N-key was selected for a Match stimulus)<br>
+                    - FN (if false Non-Match; M-key was selected for Non-Match stimulus)<br>
+                    - FN (if false Non-Match; M-key was selected for Non-Match stimulus)<br>
+                    - O (if Omission - failure to respond in time allowable (3.5 seconds); for both Match and Non-Match stimuli)<br>
                     <hr></hr>
                 </div>
             </div>
