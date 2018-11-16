@@ -2,9 +2,9 @@
 	<div id=instructions__ID class="container">
 		<div class="row row__ID">
 			<div class="col-sm" >
-				This task measures reaction time to colours and words<br>
+				This task measures reaction time to colours and words.<br>
 				Three different coloured squares will be displayed at the bottom of the screen.<br>
-				<u><b>Click</b></u> on the coloured square that matches the <b>TEXT</b> (red, blue or green) of the word above.<br><br>
+				<u><b>Click</b></u> on the coloured square that matches the <b>MEANING</b> (red, blue or green) of the word above.<br><br>
 				<p>Example</p>
 				<img src="__CURRENT_PATH__/image_txt.jpg"  width="155" height="128"> <br><br></br>
 				<p><i><b>If<font color="#FF0000" > GREEN </font>appears you would select the <u>green</u> box as shown</b></i></p>
@@ -87,7 +87,10 @@
 			ctx.textAlign = 'center';
 			var NextPair = function()
 			{
-				pair = pairs[Math.floor(Math.random() * pairs.length)];
+				var oldPair=pair;
+				while(oldPair==pair){
+					pair = pairs[Math.floor(Math.random() * pairs.length)];
+				}
 				startTime = Date.now();
 				ctx.clearRect(0, 0, width, height);
 				ctx.fillStyle = pair[1];

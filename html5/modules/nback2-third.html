@@ -5,14 +5,14 @@
 			<button class='btn btn-primary btn-lg start-button' style="float:right; margin-right:100px;">Start</button>
 		</div>
 		<div id=instructions_1__ID style="max-width:800px; margin-top : 20px;">
-			<div style="margin-bottom: 35px;"><strong>2-Back</strong></div>
-			<div style="margin-bottom: 15px;">This task <u>compares the position of letters displayed on the screen.</u></div>
-			<div><strong>Compare the position of the letter currently displayed on the screen to the position of the letter presented 2 trials previously.</strong></div>
-			<div>e.g. compare the position of the 3rd letter to the position of the 1st letter and the position of the 4th letter to the 2nd letter and so on.</div>
-			<div><strong>If the position of the current letter matches the position of the first letter</strong> press <strong><u>M</u></strong> on the keyboard for <u><strong>Match</strong> as quickly as possible.</u></div>
-			<div><strong>If the position of the current letter does not match</strong> press <strong><u>N</u></strong> for <u><strong>No Match</strong> as quickly as possible.</u></div>
-			<div style="margin-top: 15px;">To begin, press the start button (A <span style="color:#00ff00;">green dot</span> will warn you that a letter is about to appear)</div>
-			<div style="margin-top: 15px;">This task starts IMMEDIATELY after pressing start</div>
+			<div class=mb-2>2-Back</div>
+			<div class=mb-2>This task compares the <u>position of letters</u> displayed on the screen.</div>
+			<div class=mb-2>Please compare the position of the letter displayed on the screen to the position of the letter presented two letters (trials) previously, i.e. is the position of the displayed letter in the same position as two letters prior.</div>
+			<div class=mb-2>For example: <br>Compare the position of the 3rd letter to the position of the 1st letter, the position of the 4th letter to the position of the 2nd letter, the position of the 5th letter to the position of the 3rd letter, the position of the 6th letter to the position of the 4th letter and so on...</div>
+			<div class=mb-2>If the position of the letter <i>matches</i> the position of the letter presented two trials previously, please press <strong><u>M</u></strong> on the keyboard, for <strong><u>Match</u></strong>, as quickly as possible.</div>
+			<div class=mb-2>If the position of the letter does not match the position of the letter presented two trials previously, please press <strong><u>N</u></strong> on the keyboard, for <strong><u>No Match</u></strong>, as quickly as possible.</div>
+			<div class=mb-2>To begin, press the START button (A <span style="color:#00ff00;">green dot</span> will warn you that a letter is about to appear)</div>
+			<div class=mb-2>This task starts IMMEDIATELY after pressing START</div>
 		</div>
 	</div>
 </div>
@@ -125,7 +125,7 @@
 			ctx.fillStyle = 'white';
 			ctx.textAlign = 'center';
 			ctx.textBaseline = 'middle';
-			ctx.font = '16px arial';
+			ctx.font = '32px arial';
 			function Instructions()
 			{
 				$('#main_canvas__ID').hide();
