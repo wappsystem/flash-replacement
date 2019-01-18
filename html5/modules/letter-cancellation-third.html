@@ -66,6 +66,8 @@
 </div>
 <script>
 	function F__ID(){
+		$('#header_0').hide();
+		$('body').css('background','white');
 		var intervals = [];
 		//------------------------------------
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
@@ -89,8 +91,23 @@
 			ClearIntervals();
 		})
 		//------------------------------------
+		var calc=function(record){
+			var dur=record.Duration.split(',');
+			var hits = record.Hits.split(",");
+			var omis = record.Omissions.split(",");
+			var comm =	record.Commissions.split(",");
+			record.duration_0=dur[0];record.hits_0=hits[0];record.omissions_0=omis[0];record.commissions_0=comm[0];
+			record.duration_1=dur[1];record.hits_1=hits[1];record.omissions_1=omis[1];record.commissions_1=comm[1];
+			record.duration_2=dur[2];record.hits_2=hits[2];record.omissions_2=omis[2];record.commissions_2=comm[2];
+			record.duration_3=dur[3];record.hits_3=hits[3];record.omissions_3=omis[3];record.commissions_3=comm[3];
+			record.duration_4=dur[4];record.hits_4=hits[4];record.omissions_4=omis[4];record.commissions_4=comm[4];
+			record.duration_5=dur[5];record.hits_5=hits[5];record.omissions_5=omis[5];record.commissions_5=comm[5];
+			record.duration_6=dur[6];record.hits_6=hits[6];record.omissions_6=omis[6];record.commissions_6=comm[6];
+		}
+		//------------------------------------
 		var data_process=function(record){
 			//alert(JSON.stringify(record));
+			calc(record)
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -117,6 +134,7 @@
 								"#instructions_6__ID",
 								"#instructions_7__ID",
 								];
+			//var timelimit = 10000;
 			var timelimit = 60000;
 			var timeLimits = [
 								timelimit,
@@ -364,10 +382,10 @@
 					if (current >= instructions.length)
 					{
 						finished = true;
-						results.A = results.Time.join(",");
-						results.B = results.Correct.join(",");
-						results.C = results.Missed.join(",");
-						results.D = results.Wrong.join(",");
+						results.Duration = results.Time.join(",");
+						results.Hits = results.Correct.join(",");
+						results.Omissions = results.Missed.join(",");
+						results.Commissions = results.Wrong.join(",");
 						callback(results);
 					}
 					else

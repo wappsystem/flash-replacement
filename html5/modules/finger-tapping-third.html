@@ -8,6 +8,8 @@
 </div>
 <script>
 	function F__ID(){
+		$('#header_0').hide();
+		$('body').css('background','white');
 		var intervals = [];
 		//------------------------------------
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
@@ -17,6 +19,59 @@
 			third_party("thirdparty_container__ID",data_process);
 
 		})
+		//------------------------------------
+		var calc=function(record){
+			var tt=record.Tapping_Time.split(',');
+            var m=record.Match.split(',');
+            var sn=record.Sequence_Number.split(',');
+            var k=0;
+            var correct=true;
+            var group=0;
+            var speed=[];
+            var acc=[];
+            for (var i=0;i<6;i++) {speed[i]=0;acc[i]=0;}
+            for(var i=0;i<tt.length;i++){
+                if(parseInt(sn[i])-1!=k){
+                    group=0;
+                    correct=true;
+                }
+                k=parseInt(sn[i])-1;
+                speed[k]++;
+                if(m[i]=="N") correct=false;
+                group++
+                if(group==5){
+                    group=0;
+                    if(correct==false) acc[k]++;
+                    correct=true;
+                }
+            }
+            record.Speed_1=speed[0];
+            record.Speed_2=speed[1];
+            record.Speed_3=speed[2];
+            record.Speed_4=speed[3];
+            record.Speed_5=speed[4];
+            record.Speed_6=speed[5];
+            record.Accuracy_1=acc[0]
+            record.Accuracy_2=acc[1]
+            record.Accuracy_3=acc[2]
+            record.Accuracy_4=acc[3]
+            record.Accuracy_5=acc[4]
+            record.Accuracy_6=acc[5]
+			/*
+            record.Speed_1=Math.floor(speed[0]/5);
+            record.Speed_2=Math.floor(speed[1]/5);
+            record.Speed_3=Math.floor(speed[2]/5);
+            record.Speed_4=Math.floor(speed[3]/5);
+            record.Speed_5=Math.floor(speed[4]/5);
+            record.Speed_6=Math.floor(speed[5]/5);
+            record.Accuracy_1=(acc[0]/Math.floor(speed[0]/5)).toFixed(2);
+            record.Accuracy_2=(acc[1]/Math.floor(speed[1]/5)).toFixed(2);
+            record.Accuracy_3=(acc[2]/Math.floor(speed[2]/5)).toFixed(2);
+            record.Accuracy_4=(acc[3]/Math.floor(speed[3]/5)).toFixed(2);
+            record.Accuracy_5=(acc[4]/Math.floor(speed[4]/5)).toFixed(2);
+            record.Accuracy_6=(acc[5]/Math.floor(speed[5]/5)).toFixed(2);
+			*/
+		}
 		//------------------------------------
 		var ClearIntervals = function()
 		{
@@ -34,6 +89,7 @@
 		//------------------------------------
 		var data_process=function(record){
 			//alert(JSON.stringify(record));
+			calc(record);
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -48,21 +104,22 @@
 			$('#'+containerID).css('background-color','#ffffff');
 			var canvas = document.getElementById('main_canvas');
 			var ctx = canvas.getContext('2d');
-//*
+/*
 			var repeats = 6;
 			var predelaytime = 5000;
-			var predelaytext = "Be ready it will start shortly";
+			var predelaytext = "Please be ready. The task will start shortly.";
 			var postdelaytime = 25000;
 			var postdelaytext = "Relax for a while.";
 			var timelimit = 30000;
-/*/
-			var repeats = 2;
+			//var cleardelaytime=50;
+*/
+			var repeats = 6;
 			var predelaytime = 2000;
 			var predelaytext = "Be ready it will start shortly";
 			var postdelaytime = 2000;
 			var postdelaytext = "Relax for a while.";
-			var timelimit = 5000;
-//*/
+			var timelimit = 10000;
+
 			var repeat = 0
 
 			var sequence = ['4', '1', '3', '2', '4'];
@@ -117,8 +174,10 @@
 					if (currentNumber >= sequence.length)
 					{
 						results.Match.push(sequenceMatch);
+//						results.Tapping_Time.push(Date.now() - startTime + cleardelaytime);
 						results.Tapping_Time.push(Date.now() - startTime);
 						results.Sequence_Number.push(repeat);
+//						setTimeout(ResetSequence,cleardelaytime); //Added by Gunnar
 						ResetSequence();
 					}
 				}
@@ -171,9 +230,9 @@
 				}
 				else
 				{
-					results.A = results.Match.join(",");
-					results.B = results.Tapping_Time.join(",");
-					results.C = results.Sequence_Number.join(",");
+					results.Match = results.Match.join(",");
+					results.Tapping_Time = results.Tapping_Time.join(",");
+					results.Sequence_Number = results.Sequence_Number.join(",");
 					callback(results);
 				}
 			}

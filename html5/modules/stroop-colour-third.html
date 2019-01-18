@@ -20,6 +20,8 @@
 <script>
 	function F__ID(){
 		var intervals = [];
+		$('#header_0').hide();
+		$('body').css('background','white');
 		//------------------------------------
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
 		//------------------------------------
@@ -27,6 +29,22 @@
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
 		})
+		//------------------------------------
+        var calc=function(record){
+    	    var rt=record.ReactionTimes.split(",");
+            var res=record.Result.split(",");
+            var corr=0;
+            var react=0.0;
+            for (var i=0;i<rt.length;i++){
+    	        react=react+parseInt(rt[i]);
+    	        if(res[i]=='C') corr++;
+            }
+            record.SPC=(100*corr/rt.length).toFixed(1);
+            record.SPRT=(react/rt.length*0.001).toFixed(3);
+            record.STTT=(record.timelimit/1000).toString();
+            record.SCORR=corr.toString();
+            record.STotal=rt.length.toString();
+    	}
 		//------------------------------------
 		var ClearIntervals = function()
 		{
@@ -44,6 +62,7 @@
 		//------------------------------------
 		var data_process=function(record){
 			//alert(JSON.stringify(record));
+			calc(record);
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -65,12 +84,10 @@
 				['BLUE', 'red'],['BLUE', 'lime']];
 
 			var pair = [];
-//*
-			var timelimit = 20000;
-			//var timelimit = 45000;
-/*/
-			var timelimit = 5000;
-//*/
+			//var timelimit = 20000;
+			var timelimit = 45000;
+			//var timelimit = 5000;
+			//------------------------------------
 			var startTime;
 			var width = canvas.width;
 			var height = canvas.height;
@@ -80,6 +97,7 @@
 			var results = {
 				Match : [],
 				Time : [],
+				timelimit
 			};
 
 			var rects = [];
@@ -129,8 +147,9 @@
 				currentSequence = 0;
 				ctx.clearRect(0, 0, width, height);
 				{
-					results.A = results.Match.join(",");
-					results.B = results.Time.join(",");
+					results.Result = results.Match.join(",");
+					results.ReactionTimes = results.Time.join(",");
+					results.timelimit=results.timelimit;
 					callback(results);
 				}
 			}

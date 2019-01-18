@@ -56,6 +56,8 @@ Using the guide above, press the number on your keypad corresponding to the rand
 </div>
 <script>
 	function F__ID(){
+		$('#header_0').hide();
+		$('body').css('background','white');
 		var intervals = [];
 		//------------------------------------
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
@@ -110,6 +112,7 @@ Using the guide above, press the number on your keypad corresponding to the rand
 			var results = {
 				Count : 0,
 				Correct : 0,
+				timelimit
 			};
 			var Start = function()
 			{
@@ -163,8 +166,9 @@ Using the guide above, press the number on your keypad corresponding to the rand
 					return;
 				if (example >= examples)
 				{
-					results.A = results.Count;
-					results.B = results.Correct;
+					results.TestCount = results.Count;
+					results.CorrectCount = results.Correct;
+					results.Duration=(results.timelimit)/1000
 					callback(results);
 				}
 			}

@@ -18,6 +18,8 @@
 </div>
 <script>
 	function F__ID(){
+		$('#header_0').hide();
+		$('body').css('background','black');
 		var timeouts = [];
 		var intervals = [];
 		//------------------------------------
@@ -47,8 +49,40 @@
 			ClearIntervals();
 		})
 		//------------------------------------
+		var calc=function(record){
+            var nno=record.NNO.split(",");
+            var nrt=record.NRT.split(",");
+            var nac=record.NAC.split(",");
+            var ngta=0;
+            var nrgt=0;
+            var ntcr=0;
+            var ntic=0;
+            var ntmr=0;
+            var nmis=0;
+            for (var i=0;i<nno.length;i++){
+    	        if( nac[i]=='CM' && nno[i]!='PRE')   ntcr++;
+    	        if( nac[i]=='CN' && nno[i]!='PRE')   ntcr++;
+    	        if( nac[i]=='O' && nno[i]!='PRE')    nmis++;
+    	        if( nac[i]=='FM' && nno[i]!='PRE')   ntic++;
+    	        if( nac[i]=='FN' && nno[i]!='PRE')   ntic++;
+    	        if( nac[i]=='W' && nno[i]!='PRE')    ntic++;
+    	        if( nno[i]!='PRE')   nrgt=nrgt+parseInt(nrt[i]);
+            }
+            if( ntcr+ntic > 0){
+                ngta=(100*ntcr/(ntcr+ntic)).toFixed(1)
+                record.NGTA=ngta;
+            }
+            else  record.NGTA='0';
+            record.NBACK='2';
+            record.NTCR=ntcr;
+            record.NMIS=nmis;
+            record.NTIC=ntic;
+            record.NGRT=nrgt;
+        }
+		//------------------------------------
 		var data_process=function(record){
 			//alert(JSON.stringify(record));
+			calc(record);
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -270,9 +304,9 @@
 				if (!finished)
 				{
 					finished = true;
-					results.A = results.Number.join(",");
-					results.B = results.Time.join(",");
-					results.C = results.KeyResponse.join(",");
+					results.NNO = results.Number.join(",");
+					results.NRT = results.Time.join(",");
+					results.NAC = results.KeyResponse.join(",");
 					callback(results);
 				}
 			}

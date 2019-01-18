@@ -8,6 +8,8 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 <script>
 	function F__ID(){
 		var intervals = [];
+		$('#header_0').hide();
+		$('body').css('background','white');
 		//------------------------------------
 		var this_module=$vm.module_list[$vm.vm['__ID'].name];
 		//------------------------------------
@@ -15,6 +17,25 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 			$('#thirdparty_container__ID').css('height',$vm.min_height);
 			third_party("thirdparty_container__ID",data_process);
 		})
+		//------------------------------------
+		var calc=function(record){
+    	    var tpt=record.TPT.split(",");
+            var tft=record.TFT.split(",");
+            var tss=record.TSS.split(",");
+            var tno=record.TNO.split(",");
+            var ss=0;
+            var plan=0.0;
+            var finish=0.0;
+            for (var i=0;i<tpt.length;i++){
+     	        plan=plan+parseInt(tpt[i]);
+     	        finish=finish+parseInt(tft[i]);
+     	        if(tss[i]=='W') ss++;
+            }
+            record.TGME=(ss/tpt.length).toFixed(2).toString();
+            record.TGMT=((plan+finish)/tpt.length*0.001).toFixed(3).toString();
+            record.TMIS=ss.toString();
+            record.TPLAN=((plan)/tpt.length*0.001).toFixed(3).toString();
+        }
 		//------------------------------------
 		var ClearIntervals = function()
 		{
@@ -32,6 +53,7 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 		//------------------------------------
 		var data_process=function(record){
 			//alert(JSON.stringify(record));
+			calc(record);
 			var req={cmd:"add_json_record",db_pid:this_module.table_id,data:record,dbv:{V3:this_module.v3}};
 			$VmAPI.request({data:req,callback:function(res){
 				$vm.refresh=1;
@@ -52,9 +74,9 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 			var patterns = [
 				{p:'GB  R', m:2},
 				{p:' BG R', m:2},
-				{p:'G B R', m:2},
+				{p:'G R B', m:2},
 				{p:'GB R ', m:3},
-				{p:'G BR ', m:3},
+				{p:'G RB ', m:3},
 				{p:'RG B ', m:4},
 				{p:'B RG ', m:4},
 				{p:'RB  G', m:4},
@@ -62,7 +84,7 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 				{p:'RGB  ', m:5},
 				{p:'RBG  ', m:5},
 				{p:'BG R ', m:5},
-				{p:'B RG ', m:5},
+				{p:'B R G', m:5},
 			];
 			var currentPattern = 0;
 			var examplePatterns = 1;
@@ -481,10 +503,10 @@ Click-and-drag to arrange the coloured balls on the left to match the Goal on th
 				if ($("#main_canvas__ID").is(':hidden')) //hacky and ugly way :(
 					return;
 				finished = true;
-				results.A = results.Test.join(",");
-				results.B = results.Correct.join(",");
-				results.C = results.Planning_Time.join(",");
-				results.D = results.Finish_Time.join(",");
+				results.TNO = results.Test.join(",");
+				results.TSS = results.Correct.join(",");
+				results.TPT = results.Planning_Time.join(",");
+				results.TFT = results.Finish_Time.join(",");
 				callback(results);
 			}
 			function roundRect(ctx, x, y, width, height, radius, fill, stroke)
