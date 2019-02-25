@@ -182,7 +182,7 @@
 				else if (nback == 2)
 					return Math.max(0, cur - 2);
 				else if (nback == 3)
-					return Math.max(0, cur - 4);
+					return Math.max(0, cur - 3);
 			}
 			function Start()
 			{
@@ -200,24 +200,40 @@
 							}
 					trials.push(t);
 				}
+
+				var p1=0,p2=0,pv;
 				for (var i=0; i<numtrials; i++)
 				{
 					var ref = ReferenceTrial(trials.length);
+					if(p1==numtrials/2 || p2==numtrials/2 ) {
+						if(p2==numtrials/2) {pv=trials[ref].p;}
+						else pv=RandomExcept(positions.length, trials[ref].p);
+					}
+					else { if(Math.random() < 0.5 ){
+								pv=trials[ref].p;
+								p1++;
+							}
+							else{
+								pv=RandomExcept(positions.length, trials[ref].p);
+								p2++
+							}
+					}
 					var t = {
 								id: i+1,
 								l: Math.floor(Math.random() * letters.length),
-								p: (Math.random() < 0.5 ? trials[ref].p : RandomExcept(positions.length, ref)),
+								p: pv,
 								pre: false,
 							}
 					trials.push(t);
 				}
+				
 
 				for (var i=0; i<trials.length; i++)
 				{
 					var t = trials[i];
 					var rti = ReferenceTrial(i);
 					var rt = trials[rti];
-					console.log(i + ' ' + t.l + ' ' + t.p + ' ' + rt.p + ' ' + rti);
+					console.log(i + ',' + t.l + ',' + t.p);// + ',' + rt.p + ',' + rti);
 				}
 				current = -1;
 				Next();
