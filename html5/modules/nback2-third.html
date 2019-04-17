@@ -59,14 +59,16 @@
             var ntic=0;
             var ntmr=0;
             var nmis=0;
-            for (var i=0;i<nno.length;i++){
-    	        if( nac[i]=='CM' && nno[i]!='PRE')   ntcr++;
-    	        if( nac[i]=='CN' && nno[i]!='PRE')   ntcr++;
-    	        if( nac[i]=='O' && nno[i]!='PRE')    nmis++;
-    	        if( nac[i]=='FM' && nno[i]!='PRE')   ntic++;
-    	        if( nac[i]=='FN' && nno[i]!='PRE')   ntic++;
-    	        if( nac[i]=='W' && nno[i]!='PRE')    ntic++;
-    	        if( nno[i]!='PRE')   nrgt=nrgt+parseInt(nrt[i]);
+			for (var i=0;i<nno.length;i++){
+				if(nno[i]!='1' && nno[i]!='2' && nno[i]!='3' && nno[i]!='PRE'){
+					if( nac[i]=='CM')   ntcr++;
+					if( nac[i]=='CN')   ntcr++;
+					if( nac[i]=='O')    nmis++;
+					if( nac[i]=='FM')   ntic++;
+					if( nac[i]=='FN')   ntic++;
+					if( nac[i]=='W')    ntic++;
+					nrgt=nrgt+parseInt(nrt[i]);
+				}
             }
             if( ntcr+ntic > 0){
                 ngta=(100*ntcr/(ntcr+ntic)).toFixed(1)

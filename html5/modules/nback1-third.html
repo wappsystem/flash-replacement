@@ -49,10 +49,10 @@
 			ClearIntervals();
 		})
 		//------------------------------------
-		var calc=function(record){
-            var nno=record.NNO.split(",");
-            var nrt=record.NRT.split(",");
-            var nac=record.NAC.split(",");
+		var calc=function(data){
+            var nno=data.NNO.split(",");
+            var nrt=data.NRT.split(",");
+            var nac=data.NAC.split(",");
             var ngta=0;
             var nrgt=0;
             var ntcr=0;
@@ -60,24 +60,26 @@
             var ntmr=0;
             var nmis=0;
             for (var i=0;i<nno.length;i++){
-    	        if( nac[i]=='CM' && nno[i]!='PRE')   ntcr++;
-    	        if( nac[i]=='CN' && nno[i]!='PRE')   ntcr++;
-    	        if( nac[i]=='O' && nno[i]!='PRE')    nmis++;
-    	        if( nac[i]=='FM' && nno[i]!='PRE')   ntic++;
-    	        if( nac[i]=='FN' && nno[i]!='PRE')   ntic++;
-    	        if( nac[i]=='W' && nno[i]!='PRE')    ntic++;
-    	        if( nno[i]!='PRE')   nrgt=nrgt+parseInt(nrt[i]);
+				if(nno[i]!='1' && nno[i]!='2' && nno[i]!='3' && nno[i]!='PRE'){
+					if( nac[i]=='CM')   ntcr++;
+					if( nac[i]=='CN')   ntcr++;
+					if( nac[i]=='O')    nmis++;
+					if( nac[i]=='FM')   ntic++;
+					if( nac[i]=='FN')   ntic++;
+					if( nac[i]=='W')    ntic++;
+					nrgt=nrgt+parseInt(nrt[i]);
+				}
             }
             if( ntcr+ntic > 0){
                 ngta=(100*ntcr/(ntcr+ntic)).toFixed(1)
-                record.NGTA=ngta;
+                data.NGTA=ngta;
             }
-            else  record.NGTA='0';
-            record.NBACK='1';
-            record.NTCR=ntcr;
-            record.NMIS=nmis;
-            record.NTIC=ntic;
-            record.NGRT=nrgt;
+            else  data.NGTA='0';
+            data.NBACK='1';
+            data.NTCR=ntcr;
+            data.NMIS=nmis;
+            data.NTIC=ntic;
+            data.NGRT=nrgt;
         }
         //-------------------------------------
 		var data_process=function(record){
